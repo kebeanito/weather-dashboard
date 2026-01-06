@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // enable dark mode via class
+        }
+    </script>
+
+    <style>
+        /* Fade-in animation for weather card */
+        .fade-in {
+            animation: fadeIn 0.6s ease-in-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Animated gradient background */
+        body {
+            background: linear-gradient(-45deg, #1e3a8a, #2563eb, #0ea5e9, #38bdf8);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-8 transition-colors duration-500">
+
+    <!-- Header -->
+    <div class="flex items-center w-full max-w-md justify-between mb-6">
+        <h1 class="text-3xl font-bold text-gray-100 dark:text-gray-200">Weather Dashboard</h1>
+
+        <!-- Dark Mode Toggle -->
+        <button 
+            onclick="toggleDarkMode()"
+            class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+        >
+            🌙
+        </button>
+    </div>
+
+    <!-- Search Box -->
+    <div class="bg-white/80 dark:bg-gray-800 shadow-lg rounded-xl p-6 w-full max-w-md backdrop-blur-md">
+        <div class="relative">
+            <input 
+                id="cityInput"
+                type="text"
+                placeholder="Enter city name"
+                class="w-full border p-3 rounded-lg dark:text-gray-100 dark:bg-gray-700 dark:border-gray-600"
+                onkeydown="handleEnter(event)"
+            />
+            <button
+                onclick="clearInput()"
+                class="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+            >
+                ✕
+            </button>
+        </div>
+
+        <button 
+            onclick="getWeather()"
+            class="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 mt-4"
+        >
+            Get Weather
+        </button>
+
+        <!-- Loading spinner -->
+        <div id="loading" class="hidden mt-4 text-center">
+            <div class="animate-spin h-8 w-8 border-4 border-blue-400 border-t-transparent rounded-full mx-auto"></div>
+            <p class="text-gray-500 mt-2">Loading...</p>
+        </div>
+
+        <!-- Weather Result -->
+        <div id="weatherResult" class="mt-6"></div>
+    </div>
+
+    <script src="weather.js"></script>
+
+</body>
+</html>
