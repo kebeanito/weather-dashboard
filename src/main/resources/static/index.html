@@ -9,7 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class', // enable dark mode via class
+            darkMode: 'class',
         }
     </script>
 
@@ -36,12 +36,70 @@
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
+
+        /* Clouds */
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+        .cloud::before, .cloud::after {
+            content: '';
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+        }
+
+        /* Cloud 1 */
+        .cloud1 {
+            width: 80px;
+            height: 50px;
+            top: 60px;
+            left: -100px;
+            animation: moveCloud1 60s linear infinite;
+        }
+        .cloud1::before {
+            width: 60px; height: 40px; top: -20px; left: 10px;
+        }
+        .cloud1::after {
+            width: 50px; height: 30px; top: 10px; left: 50px;
+        }
+        @keyframes moveCloud1 {
+            0% { transform: translateX(-200px); }
+            100% { transform: translateX(110vw); }
+        }
+
+        /* Cloud 2 */
+        .cloud2 {
+            width: 100px;
+            height: 60px;
+            top: 120px;
+            left: -150px;
+            animation: moveCloud2 90s linear infinite;
+        }
+        .cloud2::before {
+            width: 70px; height: 50px; top: -25px; left: 20px;
+        }
+        .cloud2::after {
+            width: 60px; height: 40px; top: 15px; left: 60px;
+        }
+        @keyframes moveCloud2 {
+            0% { transform: translateX(-200px); }
+            100% { transform: translateX(120vw); }
+        }
+
+        /* Add more clouds as needed by duplicating classes with different top/animation-duration */
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center p-8 transition-colors duration-500">
+<body class="min-h-screen flex flex-col items-center p-8 transition-colors duration-500 overflow-hidden">
+
+    <!-- Clouds -->
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
 
     <!-- Header -->
-    <div class="flex items-center w-full max-w-md justify-between mb-6">
+    <div class="flex items-center w-full max-w-md justify-between mb-6 relative z-10">
         <h1 class="text-3xl font-bold text-gray-100 dark:text-gray-200">Weather Dashboard</h1>
 
         <!-- Dark Mode Toggle -->
@@ -54,7 +112,7 @@
     </div>
 
     <!-- Search Box -->
-    <div class="bg-white/80 dark:bg-gray-800 shadow-lg rounded-xl p-6 w-full max-w-md backdrop-blur-md">
+    <div class="bg-white/80 dark:bg-gray-800 shadow-lg rounded-xl p-6 w-full max-w-md backdrop-blur-md relative z-10">
         <div class="relative">
             <input 
                 id="cityInput"
